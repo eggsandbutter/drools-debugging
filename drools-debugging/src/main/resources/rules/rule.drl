@@ -1,0 +1,36 @@
+//created on: 21-sep-2017
+package rules
+
+import com.sample.ObjectA
+import com.sample.ObjectB
+
+function int someFunction(Integer object) {
+	int someValue = 0;
+	if (object != null) {
+		someValue = object.intValue();
+	}
+	return someValue;
+}
+
+rule "01 NESTED ACCESS"
+    when
+        ObjectA( objectB. ( (someFunction(someVariable)) == 0 ) )
+    then
+        System.out.println("Nested ObjectB has null variable in group accessor");
+end
+
+rule "02 ACCESS ObjectA"
+    when
+        ObjectA( (someFunction(someVariable)) == 0 )
+    then
+        System.out.println("ObjectA has null variable");
+end
+
+
+rule "03 ACCESS ObjectB"
+    when
+        ObjectA( $objectB : objectB )
+        ObjectB( (someFunction(someVariable)) == 0 ) from $objectB
+    then
+        System.out.println("Nested ObjectB has null variable accessed by variable");
+end
