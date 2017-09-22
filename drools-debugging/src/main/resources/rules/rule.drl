@@ -19,7 +19,14 @@ rule "01 NESTED ACCESS"
         System.out.println("Nested ObjectB has null variable in group accessor");
 end
 
-rule "02 ACCESS ObjectA"
+rule "02 ANOTHER NESTED ACCESS"
+    when
+        ObjectA( objectB. ( (someVariable == 0 || someVariable == 1 ) || (someVariable > -1 || someVariable < 2 )) )
+    then
+        System.out.println("Nested ObjectB has null variable in group accessor");
+end
+
+rule "03 ACCESS ObjectA"
     when
         ObjectA( (someFunction(someVariable)) == 0 )
     then
@@ -27,17 +34,10 @@ rule "02 ACCESS ObjectA"
 end
 
 
-rule "03 ACCESS ObjectB"
+rule "04 ACCESS ObjectB"
     when
         ObjectA( $objectB : objectB )
         ObjectB( (someFunction(someVariable)) == 0 ) from $objectB
     then
         System.out.println("Nested ObjectB has null variable accessed by variable");
-end
-
-rule "04 ANOTHER NESTED ACCESS"
-    when
-        ObjectA( objectB. ( (someVariable == 0 || someVariable == 1 ) || (someVariable > -1 || someVariable < 2 )) )
-    then
-        System.out.println("Nested ObjectB has null variable in group accessor");
 end
