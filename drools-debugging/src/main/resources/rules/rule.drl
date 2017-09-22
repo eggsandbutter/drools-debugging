@@ -9,7 +9,7 @@ function int someFunction(Integer object) {
 	if (object != null) {
 		someValue = object.intValue();
 	}
-	return someValue;
+	return (someValue+1);
 }
 
 rule "01 NESTED ACCESS"
@@ -33,4 +33,11 @@ rule "03 ACCESS ObjectB"
         ObjectB( (someFunction(someVariable)) == 0 ) from $objectB
     then
         System.out.println("Nested ObjectB has null variable accessed by variable");
+end
+
+rule "04 ANOTHER NESTED ACCESS"
+    when
+        ObjectA( objectB. ( (someVariable == 0 || someVariable == 1 ) || (someVariable > -1 || someVariable < 2 )) )
+    then
+        System.out.println("Nested ObjectB has null variable in group accessor");
 end
