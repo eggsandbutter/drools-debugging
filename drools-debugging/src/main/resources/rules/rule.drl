@@ -37,7 +37,7 @@ end
 rule "04 ACCESS ObjectB"
     when
         ObjectA( $objectB : objectB )
-        ObjectB( (someFunction(someVariable)) == 0 ) from $objectB
+        ObjectB( (someFunction(someVariable)) == 0, (someVariable == 0 || someVariable == 1 ) || (someVariable > -1 || someVariable < 2 ) ) from $objectB
     then
         System.out.println("Nested ObjectB has null variable accessed by variable");
 end
