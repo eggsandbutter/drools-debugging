@@ -41,3 +41,10 @@ rule "04 ACCESS ObjectB"
     then
         System.out.println("Nested ObjectB has null variable accessed by variable");
 end
+
+rule "05 NESTED ACCESS POJO"
+    when
+        ObjectA( someFunction(getObjectB().getSomeVariable()) == 0  )
+    then
+        System.out.println("Nested ObjectB has null variable in POJO access");
+end
